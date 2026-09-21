@@ -1,465 +1,295 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07030f">
+<meta name="description" content="Shadow Studios — Güç, eğlence ve rekabetin buluştuğu Minecraft topluluğu.">
+<title>Shadow Studios | Minecraft</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
-    <title>Shadow Studios</title>
+:root{
+  --purple:#9b4dff;
+  --violet:#6d18ff;
+  --white:#f7f3ff;
+  --muted:#b8acd0;
+  --panel:rgba(10,5,24,.70);
+  --line:rgba(157,77,255,.38);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:Inter,system-ui,sans-serif;
+  color:var(--white);
+  background:#030108;
+  overflow-x:hidden;
+}
+a{text-decoration:none;color:inherit}
+button{font:inherit}
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
-        }
+body:before{
+  content:"";
+  position:fixed; inset:0; pointer-events:none; z-index:20;
+  background:
+    radial-gradient(circle at 50% 35%,rgba(130,30,255,.12),transparent 35%),
+    radial-gradient(circle at 15% 80%,rgba(111,25,255,.08),transparent 30%);
+  mix-blend-mode:screen;
+}
 
-        html {
-            scroll-behavior: smooth;
-        }
+/* NAV */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  height:74px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 5%;
+  background:rgba(3,1,10,.78);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(156,76,255,.18);
+}
+.brand{display:flex;align-items:center;gap:13px;font-weight:900;letter-spacing:3px}
+.brand-s{
+  width:40px;height:40px;display:grid;place-items:center;
+  font-size:29px;font-weight:900;font-style:italic;
+  color:white;
+  text-shadow:0 0 8px #fff,0 0 24px var(--purple),0 0 45px var(--violet);
+  filter:drop-shadow(0 0 9px var(--purple));
+}
+.brand span{font-size:16px}
+.navlinks{display:flex;gap:34px;align-items:center}
+.navlinks a{font-size:13px;color:#c9bfd7;transition:.25s}
+.navlinks a:hover{color:white;text-shadow:0 0 12px var(--purple)}
+.discord{
+  padding:12px 21px;border:1px solid #a75cff;border-radius:13px;
+  background:linear-gradient(135deg,rgba(122,31,255,.35),rgba(63,7,130,.18));
+  box-shadow:0 0 18px rgba(138,44,255,.28),inset 0 0 18px rgba(154,73,255,.08);
+  font-weight:800;font-size:13px;transition:.25s;
+}
+.discord:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(151,69,255,.55)}
+@media(max-width:850px){.navlinks{display:none}.nav{padding:0 20px}}
 
-        body {
-            background: #050505;
-            color: white;
-            overflow-x: hidden;
-        }
+/* HERO */
+.hero{
+  min-height:820px;height:100vh;max-height:1000px;
+  position:relative;display:flex;align-items:center;
+  background:
+    linear-gradient(90deg,rgba(3,1,10,.96) 0%,rgba(3,1,10,.60) 34%,rgba(3,1,10,.16) 63%,rgba(3,1,10,.60) 100%),
+    linear-gradient(180deg,rgba(3,1,10,.2),#030108 98%),
+    url("shadow-bg.png") center/cover no-repeat;
+  isolation:isolate;
+}
+.hero:after{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:
+    radial-gradient(ellipse at 50% 35%,transparent 20%,rgba(0,0,0,.38) 75%),
+    linear-gradient(0deg,#030108 0%,transparent 22%);
+}
+.hero-content{width:min(1180px,90%);margin:80px auto 0;position:relative}
+.kicker{
+  color:#bd78ff;font-size:13px;font-weight:700;letter-spacing:3px;
+  text-transform:uppercase;margin-bottom:17px;
+  text-shadow:0 0 15px #8c35ff;
+}
+h1{
+  font-size:clamp(55px,8vw,112px);line-height:.84;
+  letter-spacing:-5px;font-weight:900;
+  text-transform:uppercase;
+  text-shadow:0 0 8px rgba(255,255,255,.7),0 0 25px rgba(148,61,255,.7),0 0 65px rgba(95,20,255,.35);
+}
+h1 em{
+  display:block;font-style:italic;
+  color:#a855ff;
+  text-shadow:0 0 10px #a855ff,0 0 35px #7018ff;
+  letter-spacing:-3px;
+}
+.hero-text{max-width:550px;color:#d2c9dd;line-height:1.75;margin:25px 0 28px;font-size:15px}
+.cta{
+  display:inline-flex;align-items:center;gap:12px;
+  padding:15px 25px;border-radius:13px;
+  background:linear-gradient(135deg,#8f31ff,#5711bf);
+  border:1px solid #bd7aff;
+  box-shadow:0 0 22px rgba(130,35,255,.55),inset 0 0 20px rgba(255,255,255,.08);
+  font-weight:800;transition:.25s;
+}
+.cta:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 0 38px rgba(157,67,255,.8)}
+.online{display:flex;align-items:center;gap:9px;margin-top:17px;color:#bcb1c9;font-size:12px}
+.dot{width:8px;height:8px;border-radius:50%;background:#37ff91;box-shadow:0 0 12px #37ff91}
 
-        /* ARKA PLAN */
-        .background {
-            position: fixed;
-            inset: 0;
-            z-index: -2;
-            background:
-                radial-gradient(circle at 50% 30%, #252525 0%, #0c0c0c 35%, #020202 75%);
-        }
+/* LIGHTNING */
+.lightning{
+  position:absolute;z-index:2;pointer-events:none;opacity:0;
+  width:2px;height:280px;
+  background:white;
+  box-shadow:0 0 8px #fff,0 0 22px #a84dff,0 0 55px #761cff;
+  clip-path:polygon(47% 0,72% 0,54% 31%,82% 31%,31% 100%,44% 52%,18% 52%);
+  animation:bolt 6s infinite;
+}
+.b1{top:8%;left:48%;transform:rotate(18deg);animation-delay:1.2s}
+.b2{top:20%;right:12%;transform:rotate(-17deg);animation-delay:3.5s}
+.b3{top:38%;left:4%;height:220px;transform:rotate(12deg);animation-delay:5s}
+@keyframes bolt{
+  0%,89%,100%{opacity:0}
+  90%{opacity:1}
+  91%{opacity:.05}
+  92%{opacity:1}
+  94%{opacity:.15}
+  95%{opacity:.9}
+  97%{opacity:0}
+}
 
-        .grid {
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            opacity: 0.12;
-            background-image:
-                linear-gradient(#ffffff10 1px, transparent 1px),
-                linear-gradient(90deg, #ffffff10 1px, transparent 1px);
-            background-size: 50px 50px;
-            transform: perspective(500px) rotateX(60deg) scale(1.5);
-            transform-origin: bottom;
-        }
+/* FLOATING PARTICLES */
+.particles{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.particle{
+  position:absolute;width:3px;height:3px;border-radius:50%;background:#dcbcff;
+  box-shadow:0 0 9px #9b4dff;
+  animation:float linear infinite;
+}
+@keyframes float{
+  from{transform:translateY(105vh) translateX(0);opacity:0}
+  12%{opacity:1}
+  90%{opacity:.8}
+  to{transform:translateY(-10vh) translateX(80px);opacity:0}
+}
 
-        /* PARÇACIKLAR */
-        .particle {
-            position: fixed;
-            width: 3px;
-            height: 3px;
-            background: white;
-            border-radius: 50%;
-            opacity: 0.7;
-            animation: float 8s linear infinite;
-            z-index: -1;
-        }
+/* CARDS */
+.section{padding:95px 5%;background:
+  radial-gradient(circle at 50% 0%,rgba(103,27,185,.13),transparent 42%),
+  #030108;
+}
+.section-inner{width:min(1180px,100%);margin:auto}
+.section-title{font-size:28px;font-weight:900;letter-spacing:-1px;margin-bottom:10px}
+.section-sub{color:#9c91aa;font-size:14px;margin-bottom:30px}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{
+  min-height:180px;padding:23px;border:1px solid var(--line);border-radius:16px;
+  background:linear-gradient(145deg,rgba(25,10,45,.78),rgba(6,3,15,.84));
+  position:relative;overflow:hidden;transition:.3s;
+}
+.card:before{
+  content:"";position:absolute;inset:-50%;opacity:0;
+  background:radial-gradient(circle,rgba(145,53,255,.22),transparent 55%);
+  transition:.3s;
+}
+.card:hover{transform:translateY(-7px);border-color:#a85cff;box-shadow:0 15px 45px rgba(91,22,170,.25)}
+.card:hover:before{opacity:1}
+.icon{font-size:28px;margin-bottom:20px;filter:drop-shadow(0 0 10px #8e3cff)}
+.card h3{font-size:17px;margin-bottom:7px;position:relative}
+.card p{font-size:12px;color:#988da7;line-height:1.6;position:relative}
+.arrow{position:absolute;right:20px;bottom:20px;color:#b36aff;font-size:18px}
 
-        @keyframes float {
-            0% {
-                transform: translateY(100vh);
-                opacity: 0;
-            }
+.stats{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:55px;
+}
+.stat{
+  text-align:center;padding:28px;border-top:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(22,8,39,.5),transparent);
+}
+.stat strong{display:block;font-size:32px;text-shadow:0 0 20px #8c35ff}
+.stat span{font-size:11px;color:#84798f;text-transform:uppercase;letter-spacing:2px}
 
-            20% {
-                opacity: 0.8;
-            }
-
-            80% {
-                opacity: 0.8;
-            }
-
-            100% {
-                transform: translateY(-10vh);
-                opacity: 0;
-            }
-        }
-
-        /* NAVBAR */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 20px 7%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            backdrop-filter: blur(15px);
-            background: #00000055;
-            border-bottom: 1px solid #ffffff10;
-            z-index: 100;
-        }
-
-        .logo-text {
-            font-size: 24px;
-            font-weight: 900;
-            letter-spacing: 2px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav-links a {
-            color: #aaa;
-            text-decoration: none;
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: white;
-        }
-
-        /* ANA SAYFA */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 120px 20px 60px;
-        }
-
-        .s-logo {
-            width: 190px;
-            height: 190px;
-            border: 2px solid #ffffff30;
-            border-radius: 35px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 130px;
-            font-weight: 1000;
-            font-style: italic;
-
-            background: linear-gradient(145deg, #ffffff20, #000000);
-            box-shadow:
-                0 0 40px #ffffff15,
-                inset 0 0 30px #ffffff08;
-
-            animation: logoFloat 4s ease-in-out infinite;
-        }
-
-        @keyframes logoFloat {
-            0%, 100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-12px);
-            }
-        }
-
-        .hero h1 {
-            margin-top: 35px;
-            font-size: clamp(45px, 8vw, 90px);
-            font-weight: 1000;
-            letter-spacing: -3px;
-        }
-
-        .hero h1 span {
-            color: #aaa;
-        }
-
-        .hero p {
-            max-width: 700px;
-            margin-top: 20px;
-            color: #aaa;
-            font-size: 18px;
-            line-height: 1.7;
-        }
-
-        /* BUTON */
-        .buttons {
-            display: flex;
-            gap: 15px;
-            margin-top: 35px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .btn {
-            padding: 15px 28px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .discord {
-            background: white;
-            color: black;
-        }
-
-        .discord:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 30px #ffffff25;
-        }
-
-        .learn {
-            border: 1px solid #ffffff25;
-            color: white;
-            background: #ffffff08;
-        }
-
-        .learn:hover {
-            background: #ffffff15;
-            transform: translateY(-4px);
-        }
-
-        /* BÖLÜMLER */
-        section {
-            padding: 110px 8%;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 42px;
-            margin-bottom: 50px;
-        }
-
-        .section-title span {
-            color: #888;
-        }
-
-        /* KARTLAR */
-        .cards {
-            max-width: 1100px;
-            margin: auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            padding: 30px;
-            border: 1px solid #ffffff12;
-            background: #ffffff05;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            transition: 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-8px);
-            border-color: #ffffff30;
-            background: #ffffff09;
-        }
-
-        .card-icon {
-            font-size: 35px;
-            margin-bottom: 20px;
-        }
-
-        .card h3 {
-            font-size: 22px;
-            margin-bottom: 12px;
-        }
-
-        .card p {
-            color: #999;
-            line-height: 1.6;
-        }
-
-        /* İSTATİSTİK */
-        .stats {
-            max-width: 900px;
-            margin: auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            text-align: center;
-        }
-
-        .stat {
-            padding: 30px;
-            border-radius: 18px;
-            background: #ffffff06;
-            border: 1px solid #ffffff10;
-        }
-
-        .stat h2 {
-            font-size: 40px;
-        }
-
-        .stat p {
-            color: #888;
-            margin-top: 8px;
-        }
-
-        /* FOOTER */
-        footer {
-            text-align: center;
-            padding: 40px;
-            border-top: 1px solid #ffffff10;
-            color: #666;
-        }
-
-        @media (max-width: 700px) {
-            .nav-links {
-                display: none;
-            }
-
-            .stats {
-                grid-template-columns: 1fr;
-            }
-
-            .s-logo {
-                width: 150px;
-                height: 150px;
-                font-size: 100px;
-            }
-        }
-    </style>
+footer{
+  padding:35px 5%;border-top:1px solid rgba(157,77,255,.16);
+  color:#6e6478;font-size:12px;text-align:center;background:#020106
+}
+@media(max-width:900px){
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .hero{min-height:760px}
+}
+@media(max-width:600px){
+  .hero-content{margin-top:100px}
+  h1{letter-spacing:-3px}
+  .cards,.stats{grid-template-columns:1fr}
+  .hero-text{font-size:14px}
+}
+</style>
 </head>
-
 <body>
 
-    <div class="background"></div>
-    <div class="grid"></div>
+<header class="nav">
+  <a class="brand" href="#">
+    <div class="brand-s">S</div><span>SHADOW STUDIOS</span>
+  </a>
+  <nav class="navlinks">
+    <a href="#anasayfa">Ana Sayfa</a>
+    <a href="#sunucu">Sunucu</a>
+    <a href="#ozellikler">Özellikler</a>
+    <a href="#topluluk">Topluluk</a>
+  </nav>
+  <a class="discord" href="https://discord.gg/bZDNBGa5kJ" target="_blank">◉ &nbsp; Discord'a Katıl</a>
+</header>
 
-    <!-- PARÇACIKLAR -->
-    <script>
-        for (let i = 0; i < 60; i++) {
-            const particle = document.createElement("div");
-            particle.className = "particle";
+<main id="anasayfa">
+<section class="hero">
+  <div class="lightning b1"></div>
+  <div class="lightning b2"></div>
+  <div class="lightning b3"></div>
+  <div class="particles" id="particles"></div>
 
-            particle.style.left = Math.random() * 100 + "%";
-            particle.style.animationDelay = Math.random() * 8 + "s";
-            particle.style.animationDuration =
-                (5 + Math.random() * 8) + "s";
+  <div class="hero-content">
+    <div class="kicker">DAHA FAZLASI. DAHA FAZLASI...</div>
+    <h1>SHADOW <em>STUDIOS</em></h1>
+    <p class="hero-text">
+      Eşsiz bir Minecraft deneyimi, güçlü bir topluluk ve bitmeyen macera seni bekliyor.
+      Şimdi aramıza katıl, kendi hikâyeni yaz ve bu dünyanın bir parçası ol.
+    </p>
+    <a class="cta" href="https://discord.gg/bZDNBGa5kJ" target="_blank">
+      ◉ &nbsp; Discord'a Katıl <span>→</span>
+    </a>
+    <div class="online"><i class="dot"></i> Shadow Studios topluluğu aktif</div>
+  </div>
+</section>
 
-            document.body.appendChild(particle);
-        }
-    </script>
+<section class="section" id="ozellikler">
+  <div class="section-inner">
+    <div class="section-title">Neden Shadow Studios?</div>
+    <div class="section-sub">Sadece bir sunucu değil, kendi dünyanı kurabileceğin bir topluluk.</div>
 
-    <!-- NAVBAR -->
-    <nav>
-        <div class="logo-text">SHADOW STUDIOS</div>
+    <div class="cards">
+      <article class="card">
+        <div class="icon">⚔</div><h3>Özel Oyun Modları</h3>
+        <p>Sıradan Minecraft deneyiminin dışına çık ve benzersiz sistemleri keşfet.</p>
+        <div class="arrow">→</div>
+      </article>
+      <article class="card">
+        <div class="icon">✦</div><h3>Aktif Topluluk</h3>
+        <p>Yeni insanlarla tanış, birlikte oynayacak ekipler kur ve etkinliklere katıl.</p>
+        <div class="arrow">→</div>
+      </article>
+      <article class="card">
+        <div class="icon">♜</div><h3>Düzenli Etkinlikler</h3>
+        <p>Sürprizler, ödüller ve topluluk etkinlikleriyle macera hiç bitmez.</p>
+        <div class="arrow">→</div>
+      </article>
+      <article class="card">
+        <div class="icon">◈</div><h3>Güçlü Altyapı</h3>
+        <p>Stabil ve akıcı bir deneyim için modern sunucu altyapısı.</p>
+        <div class="arrow">→</div>
+      </article>
+    </div>
 
-        <div class="nav-links">
-            <a href="#anasayfa">Ana Sayfa</a>
-            <a href="#ozellikler">Özellikler</a>
-            <a href="#topluluk">Topluluk</a>
-        </div>
-    </nav>
+    <div class="stats" id="sunucu">
+      <div class="stat"><strong>24/7</strong><span>Sunucu Deneyimi</span></div>
+      <div class="stat"><strong>∞</strong><span>Sınırsız Macera</span></div>
+      <div class="stat"><strong>⚡</strong><span>Aktif Topluluk</span></div>
+    </div>
+  </div>
+</section>
+</main>
 
-    <!-- ANA SAYFA -->
-    <main id="anasayfa" class="hero">
+<footer id="topluluk">© 2026 Shadow Studios • Tüm hakları saklıdır.</footer>
 
-        <div class="s-logo">S</div>
-
-        <h1>
-            SHADOW <span>STUDIOS</span>
-        </h1>
-
-        <p>
-            Sınırların ötesine geç, kendi dünyanı yarat.
-            Güç, eğlence ve rekabetin bir araya geldiği
-            eşsiz topluluğumuza katıl.
-        </p>
-
-        <div class="buttons">
-            <!-- BURAYA DISCORD LİNKİNİ KOY -->
-            <a class="btn discord"
-               href="https://discord.gg/SENINLINKIN"
-               target="_blank">
-                💬 Discord'a Katıl
-            </a>
-
-            <a class="btn learn" href="#ozellikler">
-                Daha Fazla
-            </a>
-        </div>
-
-    </main>
-
-    <!-- ÖZELLİKLER -->
-    <section id="ozellikler">
-
-        <h2 class="section-title">
-            Neden <span>Shadow Studios?</span>
-        </h2>
-
-        <div class="cards">
-
-            <div class="card">
-                <div class="card-icon">⚔️</div>
-                <h3>Rekabet</h3>
-                <p>
-                    Etkinliklere katıl, diğer oyuncularla mücadele et
-                    ve yeteneklerini göster.
-                </p>
-            </div>
-
-            <div class="card">
-                <div class="card-icon">🌌</div>
-                <h3>Eşsiz Dünya</h3>
-                <p>
-                    Kendi hikâyeni oluşturabileceğin,
-                    sürekli gelişen bir topluluk.
-                </p>
-            </div>
-
-            <div class="card">
-                <div class="card-icon">🏆</div>
-                <h3>Etkinlikler</h3>
-                <p>
-                    Düzenli etkinliklere katıl ve
-                    özel ödüller kazan.
-                </p>
-            </div>
-
-            <div class="card">
-                <div class="card-icon">🤝</div>
-                <h3>Topluluk</h3>
-                <p>
-                    Yeni insanlarla tanış, arkadaş edin
-                    ve birlikte eğlen.
-                </p>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- İSTATİSTİKLER -->
-    <section id="topluluk">
-
-        <h2 class="section-title">
-            <span>Topluluğumuz</span>
-        </h2>
-
-        <div class="stats">
-
-            <div class="stat">
-                <h2>0</h2>
-                <p>Discord Üyesi</p>
-            </div>
-
-            <div class="stat">
-                <h2>0</h2>
-                <p>Aktif Oyuncu</p>
-            </div>
-
-            <div class="stat">
-                <h2>24/7</h2>
-                <p>Topluluk</p>
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-        © 2026 Shadow Studios — Tüm hakları saklıdır.
-    </footer>
-
+<script>
+const box=document.getElementById("particles");
+for(let i=0;i<55;i++){
+  const p=document.createElement("i");
+  p.className="particle";
+  p.style.left=Math.random()*100+"%";
+  p.style.animationDuration=(5+Math.random()*10)+"s";
+  p.style.animationDelay=(-Math.random()*12)+"s";
+  p.style.opacity=Math.random();
+  p.style.transform=`scale(${.5+Math.random()*1.5})`;
+  box.appendChild(p);
+}
+</script>
 </body>
 </html>
